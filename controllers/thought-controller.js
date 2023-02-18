@@ -29,11 +29,13 @@ const thoughtController = {
           {
             new: true,
           }
-        ).then((userData)=>{
-          res.json(userData)
-        }).catch((err)=>{
-          res.status(500).json(err);
-        });
+        )
+          .then((userData) => {
+            res.json(userData);
+          })
+          .catch((err) => {
+            res.status(500).json(err);
+          });
       })
       .catch((err) => {
         res.status(500).json(err);
@@ -46,12 +48,15 @@ const thoughtController = {
           ? res.status(404).json({ message: "No thought with that ID" })
           : User.findOneAndUpdate(
               { _id: req.body.userId },
-              { $pull: { thoughts: thought_id } },
+              { $pull: { thoughts: thought._id } },
               { new: true }
             )
       )
       .then(() => res.json({ message: "thought and user deleted!" }))
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
 
   updateThought(req, res) {
@@ -68,10 +73,10 @@ const thoughtController = {
       .catch((err) => res.status(500).json(err));
   },
 
-  createReaction(req, res){
+  createReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $addToSet: {reactions:req.body} },
+      { $addToSet: { reactions: req.body } },
       { runValidators: true, new: true }
     )
       .then((thought) =>
@@ -82,10 +87,10 @@ const thoughtController = {
       .catch((err) => res.status(500).json(err));
   },
 
-  deleteReaction(req, res){
+  deleteReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: {reactions:{reactionId:req.params.reactionId}} },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
       { runValidators: true, new: true }
     )
       .then((thought) =>
@@ -93,7 +98,10 @@ const thoughtController = {
           ? res.status(404).json({ message: "No thought with this id!" })
           : res.json(thought)
       )
-      .catch((err) => res.status(500).json(err));
-  }
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
 };
 module.exports = thoughtController;
