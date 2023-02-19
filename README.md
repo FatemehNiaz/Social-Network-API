@@ -37,7 +37,8 @@ The following animations showing the application's API routes being tested in In
 ![Demo of all the routes being tested in Insomnia.](./Assets/Social-Network-API.gif)
 
 
-A walkthrough video demonstrating the functionality of the application and all of the acceptance criteria being met is in here()
+A walkthrough video demonstrating the functionality of the application and all of the acceptance criteria being met is in here(https://youtu.be/3hCeSx364Ww)
+
 
 ## License
 
